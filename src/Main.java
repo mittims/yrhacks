@@ -18,7 +18,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
     public static void main(String[] args) throws IOException {
         player = new Player("Sprites/player.png");
-        fish.add(new Fish(50, 0, 6));
+        fish.add(new Fish(500, 10, 6, 0));
         Main panel = new Main();
         frame = new JFrame("skibstri");
         frame.add(panel);
@@ -70,12 +70,22 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             fishFrame++;
             if (fishFrame == targetFishFrame){
                 try {
-                    fish.add(new Fish (50,0, 6));
+                    fish.add(new Fish ((int) (Math.random()*1800),10, 6, -3*3.14159265358979323/2));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 fishFrame = 0;
             }
+        }
+        for (int i = 0; i < fish.size(); i++) {
+            fish.get(i).update(g);
+            double x = fish.get(i).x;
+            double y = fish.get(i).y;
+            if (x > 1550 || y > 850 || x < -50 || y < -50) {
+                fish.remove(i);
+                continue;
+            }
+            g.drawRect((int) fish.get(i).x, (int) fish.get(i).y, 50, 50);
         }
         for (int i = fish.size() - 1; i >= 0; i--) {
             fish.get(i).update(g);
