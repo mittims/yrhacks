@@ -8,7 +8,8 @@ import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
     public static JFrame frame;
-    public static ArrayList<Movable> entities = new ArrayList<>();
+    public static Player player = new Player(0, 0, 20);
+    public static ArrayList<Movable> enemies = new ArrayList<>();
 
     public static void main(String[] args) {
         Main panel = new Main();
@@ -22,7 +23,13 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     }
 
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+        for (Movable enemy : enemies) {
 
+        }
+        g.drawRect((int) player.x, (int) player.y, 50, 50);
+        player.update(mouseLocation.x, mouseLocation.y);
     }
 
     public void keyTyped(KeyEvent e) {}
@@ -42,6 +49,10 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public void mouseExited(MouseEvent e) {}
 
     public void run() {
-
+        while (true) {
+            repaint();
+            try {Thread.sleep(10);}
+            catch (Exception e) {throw new RuntimeException(e);}
+        }
     }
 }
