@@ -22,8 +22,8 @@ public class Movable {
 
     public void update(Graphics g) {
         g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
-        hitBox.x = (int) x;
-        hitBox.y = (int) y;
+        hitBox.x = (int) (x - sprite.getWidth() / 2d);
+        hitBox.y = (int) (y - sprite.getHeight() / 2d);
     }
 
     public double distanceTo(double mx, double my) {

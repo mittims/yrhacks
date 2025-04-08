@@ -2,19 +2,22 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Player extends Movable {
-    public double acceleration = 0.2d;
+    public double acceleration = 0.05d;
     public double deceleration = -0.5d;
     public double direction;
 
     public void update(Graphics g, int mx, int my) {
-        if (distanceTo(mx, my) > 10) {
-            direction = Math.atan2(my - y, mx - x);
-            x += speed * Math.cos(direction);
-            y += speed * Math.sin(direction);
-        } else {
-            speed -= acceleration;
-            if (speed < 0) speed = 0;
+        if (!Main.paused) {
+            if (distanceTo(mx, my) > 10) {
+                direction = Math.atan2(my - y, mx - x);
+                x += speed * Math.cos(direction);
+                y += speed * Math.sin(direction);
+            } else {
+                speed -= acceleration;
+                if (speed < 0) speed = 0;
+            }
         }
+
         super.update(g);
     }
 

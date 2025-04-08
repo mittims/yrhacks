@@ -11,6 +11,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static Player player;
     public static ArrayList<Enemy> enemies = new ArrayList<>();
     public static ArrayList<Fish> fish = new ArrayList<>();
+    public static int numFishCollected = 0;
     public static int numFish = 10;
     public static int fishFrame = 0, targetFishFrame = 50;
     public static int screenWidth = 1500;
@@ -51,7 +52,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (paused) return;
+
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
         for (Enemy enemy : enemies) {
             enemy.update(g);
@@ -59,7 +60,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         g.drawRect((int) player.x, (int) player.y, 50, 50);
         player.update(g, mouseLocation.x, mouseLocation.y);
 
-        if (mousePressed && player.speed < 7.5d) player.speed += player.acceleration;
+        if (mousePressed && player.speed < 3.5d) player.speed += player.acceleration;
         if (!mousePressed) {
             player.speed += player.deceleration;
             if (player.speed < 0) player.speed = 0;
@@ -70,7 +71,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             fishFrame++;
             if (fishFrame == targetFishFrame){
                 try {
-                    fish.add(new Fish ((int) (Math.random()*1800),10, 6, -3*3.14159265358979323/2));
+                    fish.add(new Fish ((int) (Math.random()*1800),10, 2.5d, -3*3.14159265358979323/2));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -83,9 +84,10 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             double y = fish.get(i).y;
             if (x > 1550 || y > 850 || x < -50 || y < -50) {
                 fish.remove(i);
+                numFishCollected++;
                 continue;
             }
-            g.drawRect((int) fish.get(i).x, (int) fish.get(i).y, 50, 50);
+            g.drawRect(fish.get(i).hitBox.x, fish.get(i).hitBox.y, fish.get(i).hitBox.width, fish.get(i).hitBox.height);
         }
         for (int i = fish.size() - 1; i >= 0; i--) {
             fish.get(i).update(g);
@@ -99,7 +101,9 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
     public void keyTyped(KeyEvent e) {}
 
-    public void keyPressed(KeyEvent e) {}
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) paused = !paused;
+    }
 
     public void keyReleased(KeyEvent e) {}
 

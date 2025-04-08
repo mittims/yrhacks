@@ -9,34 +9,37 @@ public class Enemy extends Movable {
         movementFrameCount = 0;
     }
     public void update(Graphics g) {
-        if (direction == 1 && y <= sprite.getHeight()) {
-            direction = 3;
-            movementFrameCount = 100;
-        } else if (direction == 2 && x >= Main.screenWidth-sprite.getWidth()) {
-            direction = 4;
-            movementFrameCount = 100;
-        } else if (direction == 3 && y >= Main.screenHeight-sprite.getHeight()) {
-            direction = 1;
-            movementFrameCount = 100;
-        } else if (direction == 4 && x <= sprite.getWidth()) {
-            direction = 2;
-            movementFrameCount = 100;
+        if (!Main.paused) {
+            if (direction == 1 && y <= sprite.getHeight()) {
+                direction = 3;
+                movementFrameCount = 100;
+            } else if (direction == 2 && x >= Main.screenWidth-sprite.getWidth()) {
+                direction = 4;
+                movementFrameCount = 100;
+            } else if (direction == 3 && y >= Main.screenHeight-sprite.getHeight()) {
+                direction = 1;
+                movementFrameCount = 100;
+            } else if (direction == 4 && x <= sprite.getWidth()) {
+                direction = 2;
+                movementFrameCount = 100;
+            }
+
+            if (movementFrameCount == 0) {
+                movementFrameCount = (int) (100 + Math.random() * 200);
+                direction = (int) (1 + Math.random() * 4);
+            } else movementFrameCount--;
+
+            if (direction == 1) {
+                y-=speed;
+            } else if (direction == 2) {
+                x+=speed;
+            } else if (direction == 3) {
+                y+=speed;
+            } else if (direction == 4) {
+                x-=speed;
+            }
         }
 
-        if (movementFrameCount == 0) {
-            movementFrameCount = (int) (100 + Math.random() * 200);
-            direction = (int) (1 + Math.random() * 4);
-        } else movementFrameCount--;
-
-        if (direction == 1) {
-            y-=speed;
-        } else if (direction == 2) {
-            x+=speed;
-        } else if (direction == 3) {
-            y+=speed;
-        } else if (direction == 4) {
-            x-=speed;
-        }
         super.update(g);
     }
 }
