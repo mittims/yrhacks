@@ -7,8 +7,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
+    public static boolean paused;
     public static JFrame frame;
-    public static Player player = new Player(0, 0, 20);
+    public static Player player = new Player(0, 0, 10);
     public static ArrayList<Movable> enemies = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -22,8 +23,26 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public Main() {
+        setPreferredSize(new Dimension(800, 600));
+        addKeyListener(this);
+        addMouseListener(this);
+        this.setFocusable(true);
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    public void run() {
+        while (true) {
+            repaint();
+            try {Thread.sleep(10);}
+            catch (Exception e) {throw new RuntimeException(e);}
+        }
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (paused) return;
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
         for (Movable enemy : enemies) {
 
@@ -47,12 +66,4 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public void mouseEntered(MouseEvent e) {}
 
     public void mouseExited(MouseEvent e) {}
-
-    public void run() {
-        while (true) {
-            repaint();
-            try {Thread.sleep(10);}
-            catch (Exception e) {throw new RuntimeException(e);}
-        }
-    }
 }

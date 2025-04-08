@@ -9,4 +9,8 @@ public class Movable {
         this.y = y;
         this.speed = speed;
     }
+
+    public double distanceTo(int mx, int my) {
+        return Math.sqrt((mx - x) * (mx - x) + (my - y) * ((my - y)));
+    }
 }
