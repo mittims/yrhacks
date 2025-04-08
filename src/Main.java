@@ -1,7 +1,9 @@
+import java.awt.image.BufferedImage;
 import java.util.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
@@ -11,15 +13,26 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static Player player;
     public static ArrayList<Enemy> enemies = new ArrayList<>();
     public static ArrayList<Fish> fish = new ArrayList<>();
+    public static BufferedImage map;
     public static int numFishCollected = 0;
     public static int numFish = 10;
     public static int fishFrame = 0, targetFishFrame = 50;
     public static int screenWidth = 1500;
     public static int screenHeight = 800;
+    public static boolean [][] land;
 
     public static void main(String[] args) throws IOException {
         player = new Player("Sprites/player.png");
         fish.add(new Fish(500, 10, 6, 0));
+        map = ImageIO.read(new File("Sprites/map.PNG"));
+        land = new boolean [map.getWidth()][map.getHeight()];
+        Color c;
+        for (int i = 0; i < map.getWidth(); i++){
+            for (int j = 0; j < map.getHeight(); j++){
+                c = new Color(map.getRGB(i, j));
+                if (c.getRed() > 200) land[i][j] = true; //If red value is bigger than 200, it isn't blue, and since there are only two colours, it must be white
+            }
+        }
         Main panel = new Main();
         frame = new JFrame("skibstri");
         frame.add(panel);
@@ -52,6 +65,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(map, 0, 0, null);
         g.drawString(String.format("Fish Collected: %d", numFishCollected), 50, 50);
 
 
@@ -96,6 +110,9 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 numFishCollected++;
             }
         }
+
+        player.update(g, mouseLocation.x, mouseLocation.y);
+        System.out.println(land[(int) player.x][(int) player.y]);
     }
 
     public void keyTyped(KeyEvent e) {}
