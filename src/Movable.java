@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Movable {
-    public static BufferedImage sprite;
+    public BufferedImage sprite;
     public double x;
     public double y;
     public double direction;
