@@ -115,12 +115,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 numFishCollected = 0;
             }
 
-            // Enemy updating
-            try {
-                enemy.update(g);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
 
             // Add fish
             int side;
@@ -177,6 +172,12 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             //Draw and update missiles
             for (int i = 0; i < enemy.missiles.size(); i++) {
                 enemy.missiles.get(i).update(g);
+            }
+            // Enemy updating
+            try {
+                enemy.update(g);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } else if (gameState == 1) {
             g.drawImage(gameOver, 0, 0, null);

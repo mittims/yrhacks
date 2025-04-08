@@ -26,10 +26,10 @@ public class Player extends Movable {
                 }
                 if (isOnLand()) {
                     sprite = standSprite;
-                    speed = Math.min(speed, 3d - Main.numFishCollected * 0.1d);
+                    speed = Math.min(speed, 2d - Main.numFishCollected * 0.25d);
                 } else {
                     sprite = rotateSprite(sideSprite, direction - Math.PI / 2d);
-                    speed = Math.min(speed, 6d - Main.numFishCollected * 0.25d);
+                    speed = Math.min(speed, 4d - Main.numFishCollected * 0.25d);
                 }
             } else {
                 speed += deceleration;
