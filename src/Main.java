@@ -56,6 +56,9 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         map = ImageIO.read(new File("Sprites/map.PNG"));
         land = new boolean [map.getWidth()][map.getHeight()];
         nest = new Rectangle(1080, 370, 50, 50);
+        fish.clear();
+        enemy.missiles.clear();
+        numFishCollected = 0;
         Color c;
         for (int i = 0; i < map.getWidth(); i++){
             for (int j = 0; j < map.getHeight(); j++){
@@ -186,8 +189,10 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         return (x1 <= e.getX() && e.getX() <= x2 && y1 <= e.getY() && e.getY() <= y2);
     }
     public void mouseClicked(MouseEvent e) {
-        if (clickRectangle(e, 528,367,1064,520)){
+        if (gameState == -1 && clickRectangle(e, 528,367,1064,520)){
             gameState = 0;
+        } else if (gameState == 1 && clickRectangle(e, 467, 652, 1006, 787)) {
+            gameState = -1;
         }
     }
 
