@@ -26,7 +26,7 @@ public class Movable {
         hitBox.y = (int) y;
     }
 
-    public double distanceTo(int mx, int my) {
+    public double distanceTo(double mx, double my) {
         return Math.sqrt((mx - x) * (mx - x) + (my - y) * ((my - y)));
     }
 }
