@@ -10,7 +10,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static boolean paused;
     public static boolean mousePressed = false;
     public static JFrame frame;
-    public static Player player = new Player(0, 0, 0);
+    public static Player player;
     public static ArrayList<Movable> enemies = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             player.speed -= 0.5d;
             if (player.speed < 0) player.speed = 0;
         }
-        player.update(mouseLocation.x, mouseLocation.y);
+        player.update(g, mouseLocation.x, mouseLocation.y);
     }
 
     public void keyTyped(KeyEvent e) {}
