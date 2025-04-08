@@ -180,6 +180,8 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             }
         } else if (gameState == 1) {
             g.drawImage(gameOver, 0, 0, null);
+            g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+            g.drawString("" + score,1020, 580);
         }
     }
 
