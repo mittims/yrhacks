@@ -1,18 +1,15 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Fish extends Movable{
-
-    public BufferedImage fishSprite;
-    public Rectangle fishHitBox;
     public int changeFrame = 10;
     public int localFrame;
+
     public Fish (int x, int y, int speed) throws IOException {
         super("Sprites/player.png", x, y, speed);
         localFrame = 0;
     }
-    public void move (){
+    public void update (Graphics g){
         localFrame++;
         x += speed * Math.cos(direction);
         y += speed * Math.sin(direction);
@@ -22,6 +19,6 @@ public class Fish extends Movable{
             changeFrame = (int) (Math.random()*100);
             localFrame = 0;
         }
-        System.out.println(localFrame);
+        super.update(g);
     }
 }

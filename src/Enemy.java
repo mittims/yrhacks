@@ -1,19 +1,14 @@
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class Enemy extends Movable {
     public int movementFrameCount;
     public int direction; //N, E, S, W: 1, 2, 3, 4
-    public Rectangle hitbox;
     public Enemy(int x, int y) throws IOException {
         super("Sprites/ball.png", x, y, 2);
         movementFrameCount = 0;
     }
     public void update(Graphics g) {
-        g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
-
         if (direction == 1 && y <= sprite.getHeight()) {
             direction = 3;
             movementFrameCount = 100;
@@ -42,6 +37,6 @@ public class Enemy extends Movable {
         } else if (direction == 4) {
             x-=speed;
         }
-
+        super.update(g);
     }
 }

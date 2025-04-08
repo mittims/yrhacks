@@ -1,16 +1,20 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Movable {
+    public double acceleration = 0.2d;
+    public double deceleration = -0.5d;
     public double direction;
 
     public void update(Graphics g, int mx, int my) {
-        g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
-        if (distanceTo(mx, my) < 10) return;
-        direction = Math.atan2(my - y, mx - x);
-        x += speed * Math.cos(direction);
-        y += speed * Math.sin(direction);
+        if (distanceTo(mx, my) > 10) {
+            direction = Math.atan2(my - y, mx - x);
+            x += speed * Math.cos(direction);
+            y += speed * Math.sin(direction);
+        } else {
+            speed -= acceleration;
+        }
+        super.update(g);
     }
 
     public Player (String spritePath) throws IOException {

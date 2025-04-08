@@ -1,9 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.event.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
@@ -17,6 +15,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static int fishFrame = 0, targetFishFrame = 50;
     public static int screenWidth = 1500;
     public static int screenHeight = 800;
+
     public static void main(String[] args) throws IOException {
         player = new Player("Sprites/player.png");
         fish.add(new Fish(50, 0, 6));
@@ -60,9 +59,9 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         g.drawRect((int) player.x, (int) player.y, 50, 50);
         player.update(g, mouseLocation.x, mouseLocation.y);
 
-        if (mousePressed && player.speed < 7.5d) player.speed += 0.2d;
+        if (mousePressed && player.speed < 7.5d) player.speed += player.acceleration;
         if (!mousePressed) {
-            player.speed -= 0.5d;
+            player.speed += player.deceleration;
             if (player.speed < 0) player.speed = 0;
         }
         player.update(g, mouseLocation.x, mouseLocation.y);
@@ -78,10 +77,13 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 fishFrame = 0;
             }
         }
-        for (int i = 0; i < fish.size(); i++) {
-            fish.get(i).move();
-            g.drawRect((int) fish.get(i).x, (int) fish.get(i).y, 50, 50);
+        for (int i = fish.size() - 1; i >= 0; i--) {
+            fish.get(i).update(g);
+            if (player.hitBox.intersects(fish.get(i).hitBox)) {
+                fish.remove(i);
+            }
         }
+
         player.update(g, mouseLocation.x, mouseLocation.y);
     }
 
