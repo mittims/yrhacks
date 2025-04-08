@@ -12,9 +12,15 @@ public class Player extends Movable {
                 direction = Math.atan2(my - y, mx - x);
                 x += speed * Math.cos(direction);
                 y += speed * Math.sin(direction);
+                speed += acceleration;
+                if (isOnLand()) {
+                    speed = Math.min(speed, 3d - Main.numFishCollected * 0.1d);
+                } else {
+                    speed = Math.min(speed, 6d - Main.numFishCollected * 0.25d);
+                }
             } else {
-                speed -= acceleration;
-                if (speed < 0) speed = 0;
+                speed += deceleration;
+                speed = Math.max(0, speed);
             }
         }
 

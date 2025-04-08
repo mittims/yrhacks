@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
     public static boolean paused;
-    public static boolean mousePressed = false;
+    public static boolean mousePressed = true;
     public static JFrame frame;
     public static Player player;
     public static ArrayList<Enemy> enemies = new ArrayList<>();
@@ -68,23 +68,18 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         g.drawImage(map, 0, 0, null);
         g.drawString(String.format("Fish Collected: %d", numFishCollected), 50, 50);
 
-
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
         // Player updating
         player.update(g, mouseLocation.x, mouseLocation.y);
-        if (mousePressed && player.speed < 6d) player.speed += player.acceleration;
-        if (!mousePressed) {
-            player.speed += player.deceleration;
-            if (player.speed < 0) player.speed = 0;
-        }
+        System.out.println(player.isOnLand());
 
         // Enemy updating
         for (Enemy enemy : enemies) {
             enemy.update(g);
         }
 
-        // Fish updating
-        if (fish.size() < numFish){
+        // Add fish
+        if (fish.size() < numFish && !paused){
             fishFrame++;
             if (fishFrame == targetFishFrame){
                 try {
@@ -110,9 +105,6 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 numFishCollected++;
             }
         }
-
-        player.update(g, mouseLocation.x, mouseLocation.y);
-        System.out.println(land[(int) player.x][(int) player.y]);
     }
 
     public void keyTyped(KeyEvent e) {}
@@ -125,13 +117,9 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
     public void mouseClicked(MouseEvent e) {}
 
-    public void mousePressed(MouseEvent e) {
-        mousePressed = true;
-    }
+    public void mousePressed(MouseEvent e) {}
 
-    public void mouseReleased(MouseEvent e) {
-        mousePressed = false;
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     public void mouseEntered(MouseEvent e) {}
 
