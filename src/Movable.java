@@ -1,10 +1,10 @@
 public class Movable {
     public int x;
     public int y;
-    public int direction;
-    public int speed;
+    public double direction;
+    public double speed;
 
-    public Movable (int x, int y, int speed){
+    public Movable (int x, int y, double speed){
         this.x = x;
         this.y = y;
         this.speed = speed;

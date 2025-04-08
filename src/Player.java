@@ -5,8 +5,6 @@ public class Player extends Movable{
     public BufferedImage playerSprite;
     public int x;
     public int y;
-    public double direction;
-    public double speed;
     public Rectangle playerHitBox;
 
     public void update(int mx, int my) {
@@ -15,7 +13,7 @@ public class Player extends Movable{
         y += (int) (speed * Math.sin(direction));
     }
 
-    public Player (int x, int y){
-        super(x, y);
+    public Player (int x, int y, double speed){
+        super(x, y, speed);
     }
 }
