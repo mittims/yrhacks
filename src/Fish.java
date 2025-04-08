@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Fish extends Movable{
 
@@ -7,8 +8,8 @@ public class Fish extends Movable{
     public Rectangle fishHitBox;
     public int changeFrame = 10;
     public int localFrame;
-    public Fish (int x, int y, int speed) {
-        super(x, y, speed);
+    public Fish (String spritePath, int x, int y, int speed) throws IOException {
+        super(spritePath, x, y, speed);
         localFrame = 0;
     }
     public void move (){

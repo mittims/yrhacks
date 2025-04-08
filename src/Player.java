@@ -13,7 +13,7 @@ public class Player extends Movable {
         g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
     }
 
-    public Player (String spritePath, int x, int y, double speed) throws IOException {
-        super(spritePath, x, y, speed);
+    public Player (String spritePath) throws IOException {
+        super(spritePath, 0d, 0d, 0d);
     }
 }

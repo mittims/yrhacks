@@ -10,7 +10,7 @@ public class Movable {
     public double direction;
     public double speed;
 
-    public Movable (String spritePath, float x, float y, double speed) throws IOException {
+    public Movable (String spritePath, double x, double y, double speed) throws IOException {
         sprite = ImageIO.read(new File(spritePath));
         this.x = x;
         this.y = y;

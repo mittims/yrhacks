@@ -13,7 +13,9 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static Player player;
     public static ArrayList<Movable> enemies = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
+        player = new Player("Sprites/player.png");
+
         Main panel = new Main();
         frame = new JFrame("skibstri");
         frame.add(panel);
