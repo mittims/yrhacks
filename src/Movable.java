@@ -29,4 +29,11 @@ public class Movable {
     public double distanceTo(double mx, double my) {
         return Math.sqrt((mx - x) * (mx - x) + (my - y) * ((my - y)));
     }
+
+    public boolean isOnLand() {
+        int w = sprite.getWidth();
+        int h = sprite.getHeight();
+        return Main.land[(int) x][(int) y] || Main.land[(int) x + w][(int) y]
+                || Main.land[(int) x][(int) y + h] || Main.land[(int) x + w][(int) y + h];
+    }
 }
