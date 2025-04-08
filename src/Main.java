@@ -82,7 +82,9 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         }
         if (gameState == 0) {
             g.drawImage(map, 0, 0, null);
-            g.drawString(String.format("Fish Collected: %d", numFishCollected), 50, 50);
+            g.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+            g.drawString("" + numFishCollected, 330, 110);
+            g.drawString("" + score, 1330, 70);
 
             Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
             // Player updating
@@ -96,13 +98,6 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 player.speed += player.deceleration;
                 if (player.speed < 0) player.speed = 0;
             }
-            // Player updating
-            try {
-                player.update(g, mouseLocation.x, mouseLocation.y);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            //System.out.println(player.isOnLand())
 
             if (player.hitBox.intersects(nest)) {
                 score += numFishCollected;
@@ -190,13 +185,13 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public boolean clickRectangle(MouseEvent e, int x1, int y1, int x2, int y2) {
         return (x1 <= e.getX() && e.getX() <= x2 && y1 <= e.getY() && e.getY() <= y2);
     }
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {}
+
+    public void mousePressed(MouseEvent e) {
         if (clickRectangle(e, 528,367,1064,520)){
             gameState = 0;
         }
     }
-
-    public void mousePressed(MouseEvent e) {}
 
     public void mouseReleased(MouseEvent e) {}
 
