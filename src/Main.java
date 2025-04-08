@@ -12,10 +12,12 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static JFrame frame;
     public static Player player;
     public static ArrayList<Movable> enemies = new ArrayList<>();
-
+    public static ArrayList<Fish> fish = new ArrayList<>();
+    public static int numFish = 10;
+    public static int fishFrame = 0, targetFishFrame = 50;
     public static void main(String[] args) throws IOException{
         player = new Player("Sprites/player.png");
-
+        fish.add(new Fish(50, 0, 6));
         Main panel = new Main();
         frame = new JFrame("skibstri");
         frame.add(panel);
@@ -55,6 +57,23 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         if (!mousePressed) {
             player.speed -= 0.5d;
             if (player.speed < 0) player.speed = 0;
+        }
+        player.update(g, mouseLocation.x, mouseLocation.y);
+
+        if (fish.size() < numFish){
+            fishFrame++;
+            if (fishFrame == targetFishFrame){
+                try {
+                    fish.add(new Fish (50,0, 6));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                fishFrame = 0;
+            }
+        }
+        for (int i = 0; i < fish.size(); i++) {
+            fish.get(i).move();
+            g.drawRect((int) fish.get(i).x, (int) fish.get(i).y, 50, 50);
         }
         player.update(g, mouseLocation.x, mouseLocation.y);
     }
