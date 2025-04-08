@@ -95,6 +95,13 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 player.speed += player.deceleration;
                 if (player.speed < 0) player.speed = 0;
             }
+            // Player updating
+            try {
+                player.update(g, mouseLocation.x, mouseLocation.y);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            //System.out.println(player.isOnLand())
 
             // Enemy updating
             try {
@@ -172,8 +179,14 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     }
 
     public void keyReleased(KeyEvent e) {}
-
-    public void mouseClicked(MouseEvent e) {}
+    public boolean clickRectangle(MouseEvent e, int x1, int y1, int x2, int y2) {
+        return (x1 <= e.getX() && e.getX() <= x2 && y1 <= e.getY() && e.getY() <= y2);
+    }
+    public void mouseClicked(MouseEvent e) {
+        if (clickRectangle(e, 528,367,1064,520)){
+            gameState = 0;
+        }
+    }
 
     public void mousePressed(MouseEvent e) {}
 
