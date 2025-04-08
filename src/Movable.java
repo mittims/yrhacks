@@ -26,7 +26,7 @@ public class Movable {
     }
 
     public void update(Graphics g) throws IOException {
-        g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
+        g.drawImage(rotateSprite(sprite, direction + Math.PI / 2), (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
         hitBox.x = (int) (x - sprite.getWidth() / 2d);
         hitBox.y = (int) (y - sprite.getHeight() / 2d);
     }

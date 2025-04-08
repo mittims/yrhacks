@@ -22,6 +22,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static int screenWidth = 1500;
     public static int screenHeight = 800;
     public static boolean [][] land;
+    public static Rectangle nest;
 
     public static void main(String[] args) throws IOException {
         player = new Player("Sprites/player.png");
@@ -36,7 +37,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Making enemies:
-        enemy = new Enemy(0, 0);
+        enemy = new Enemy(50, 50);
     }
 
     public Main() {
@@ -51,6 +52,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public void setLevel() throws IOException {
         map = ImageIO.read(new File("Sprites/map.PNG"));
         land = new boolean [map.getWidth()][map.getHeight()];
+        nest = new Rectangle(1080, 370, 50, 50);
         Color c;
         for (int i = 0; i < map.getWidth(); i++){
             for (int j = 0; j < map.getHeight(); j++){
@@ -93,16 +95,8 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 player.speed += player.deceleration;
                 if (player.speed < 0) player.speed = 0;
             }
-            // Player updating
-            try {
-                player.update(g, mouseLocation.x, mouseLocation.y);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            //System.out.println(player.isOnLand())
 
             // Enemy updating
-
             try {
                 enemy.update(g);
             } catch (IOException e) {

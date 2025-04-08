@@ -6,7 +6,7 @@ public class Fish extends Movable{
     public int localFrame;
 
     public Fish (int x, int y, double speed, double direction) throws IOException {
-        super("Sprites/player.png", x, y, speed);
+        super("Sprites/Fish 1.PNG", x, y, speed);
         this.direction = direction;
         localFrame = 0;
     }

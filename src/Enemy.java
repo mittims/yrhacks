@@ -8,7 +8,7 @@ public class Enemy extends Movable {
     public ArrayList<Missile> missiles = new ArrayList<>();
     public int rocketSpawnDelay = 250;
     public Enemy(int x, int y) throws IOException {
-        super("Sprites/ball.png", x, y, 2);
+        super("Sprites/Plane.PNG", x, y, 2);
         movementFrameCount = 0;
     }
     public void update(Graphics g) throws IOException {
