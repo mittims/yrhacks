@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
     public static JFrame frame;
+    public static ArrayList<Movable> entities = new ArrayList<>();
 
     public static void main(String[] args) {
         Main panel = new Main();
@@ -18,6 +19,10 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void paintComponent(Graphics g) {
+
     }
 
     public void keyTyped(KeyEvent e) {}
