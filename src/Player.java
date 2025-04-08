@@ -13,6 +13,7 @@ public class Player extends Movable {
             y += speed * Math.sin(direction);
         } else {
             speed -= acceleration;
+            if (speed < 0) speed = 0;
         }
         super.update(g);
     }
