@@ -2,7 +2,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Player extends Movable {
-    public double acceleration = 0.05d;
+    public double acceleration = 0.2d;
     public double deceleration = -0.5d;
     public double direction;
 

@@ -52,21 +52,24 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawString(String.format("Fish Collected: %d", numFishCollected), 50, 50);
+
 
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-        for (Enemy enemy : enemies) {
-            enemy.update(g);
-        }
-        g.drawRect((int) player.x, (int) player.y, 50, 50);
+        // Player updating
         player.update(g, mouseLocation.x, mouseLocation.y);
-
-        if (mousePressed && player.speed < 3.5d) player.speed += player.acceleration;
+        if (mousePressed && player.speed < 6d) player.speed += player.acceleration;
         if (!mousePressed) {
             player.speed += player.deceleration;
             if (player.speed < 0) player.speed = 0;
         }
-        player.update(g, mouseLocation.x, mouseLocation.y);
 
+        // Enemy updating
+        for (Enemy enemy : enemies) {
+            enemy.update(g);
+        }
+
+        // Fish updating
         if (fish.size() < numFish){
             fishFrame++;
             if (fishFrame == targetFishFrame){
@@ -84,19 +87,15 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             double y = fish.get(i).y;
             if (x > 1550 || y > 850 || x < -50 || y < -50) {
                 fish.remove(i);
-                numFishCollected++;
-                continue;
             }
-            g.drawRect(fish.get(i).hitBox.x, fish.get(i).hitBox.y, fish.get(i).hitBox.width, fish.get(i).hitBox.height);
         }
         for (int i = fish.size() - 1; i >= 0; i--) {
             fish.get(i).update(g);
             if (player.hitBox.intersects(fish.get(i).hitBox)) {
                 fish.remove(i);
+                numFishCollected++;
             }
         }
-
-        player.update(g, mouseLocation.x, mouseLocation.y);
     }
 
     public void keyTyped(KeyEvent e) {}
