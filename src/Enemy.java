@@ -22,19 +22,15 @@ public class Enemy extends Movable {
             if (d == 1 && y <= sprite.getHeight()) {
                 d = 3;
                 movementFrameCount = 100;
-                direction = 0;
             } else if (d == 2 && x >= Main.screenWidth - sprite.getWidth()) {
                 d = 4;
                 movementFrameCount = 100;
-                direction = Math.PI / 2;
             } else if (d == 3 && y >= Main.screenHeight - sprite.getHeight()) {
                 d = 1;
                 movementFrameCount = 100;
-                direction = Math.PI;
             } else if (d == 4 && x <= sprite.getWidth()) {
                 d = 2;
                 movementFrameCount = 100;
-                direction = -Math.PI / 2;
             }
 
 
@@ -47,12 +43,16 @@ public class Enemy extends Movable {
             //Movement
             if (d == 1) {
                 y -= speed;
+                direction = Math.PI;
             } else if (d == 2) {
                 x += speed;
+                direction = -Math.PI / 2;
             } else if (d == 3) {
                 y += speed;
+                direction = 0;
             } else if (d == 4) {
                 x -= speed;
+                direction = Math.PI / 2;
             }
         }
         super.update(g);
