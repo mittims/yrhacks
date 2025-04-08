@@ -68,7 +68,6 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         g.drawImage(map, 0, 0, null);
         g.drawString(String.format("Fish Collected: %d", numFishCollected), 50, 50);
 
-
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
         // Player updating
         player.update(g, mouseLocation.x, mouseLocation.y);
