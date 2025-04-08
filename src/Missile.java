@@ -36,8 +36,6 @@ public class Missile extends Movable {
             alive = false;
         } else {
             g.drawImage(sprite, (int)x - sprite.getWidth() / 2, (int)y - sprite.getHeight() / 2, null);
-            g.drawRect(Main.player.hitBox.x, Main.player.hitBox.y, (int)Main.player.hitBox.getWidth(), (int)Main.player.hitBox.getHeight());
-            g.drawRect(hitBox.x, hitBox.y,(int) hitBox.getWidth(), (int)hitBox.getHeight());
             lifespan--;
             //Movement
             x += speed * Math.cos(direction);

@@ -56,6 +56,10 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         map = ImageIO.read(new File("Sprites/map.PNG"));
         land = new boolean [map.getWidth()][map.getHeight()];
         nest = new Rectangle(1080, 370, 50, 50);
+        fish.clear();
+        enemy.missiles.clear();
+        numFishCollected = 0;
+        score = 0;
         Color c;
         for (int i = 0; i < map.getWidth(); i++){
             for (int j = 0; j < map.getHeight(); j++){
@@ -86,7 +90,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
             g.drawImage(map, 0, 0, null);
             g.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
             g.drawString("" + numFishCollected, 330, 110);
-            g.drawString("" + score, 1330, 70);
+            g.drawString("" + score, 1330, 60);
 
             Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
             // Player updating
@@ -188,14 +192,20 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         return (x1 <= e.getX() && e.getX() <= x2 && y1 <= e.getY() && e.getY() <= y2);
     }
     public void mouseClicked(MouseEvent e) {
+
+    }
+
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
         if (gameState == -1 && clickRectangle(e, 528,367,1064,520)){
             gameState = 0;
         } else if (gameState == 1 && clickRectangle(e, 467, 652, 1006, 787)) {
             gameState = -1;
         }
     }
-
-    public void mouseReleased(MouseEvent e) {}
 
     public void mouseEntered(MouseEvent e) {}
 
