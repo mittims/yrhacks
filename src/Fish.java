@@ -10,7 +10,7 @@ public class Fish extends Movable{
         this.direction = direction;
         localFrame = 0;
     }
-    public void update(Graphics g){
+    public void update(Graphics g) throws IOException {
         if (!Main.paused) {
             localFrame++;
             x += speed * Math.cos(direction);

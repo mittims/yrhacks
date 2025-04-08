@@ -11,7 +11,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static boolean mousePressed = true;
     public static JFrame frame;
     public static Player player;
-    public static ArrayList<Enemy> enemies = new ArrayList<>();
+    public static Enemy enemy;
     public static ArrayList<Fish> fish = new ArrayList<>();
     public static BufferedImage map;
     public static int numFishCollected = 0;
@@ -43,7 +43,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Making enemies:
-        enemies.add(new Enemy(0, 0));
+        enemy = new Enemy(0, 0);
     }
 
     public Main() {
@@ -70,12 +70,17 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
         // Player updating
-        player.update(g, mouseLocation.x, mouseLocation.y);
-        System.out.println(player.isOnLand());
+        try {
+            player.update(g, mouseLocation.x, mouseLocation.y);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         // Enemy updating
-        for (Enemy enemy : enemies) {
+        try {
             enemy.update(g);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         // Add fish
@@ -90,20 +95,25 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 fishFrame = 0;
             }
         }
-        for (int i = 0; i < fish.size(); i++) {
-            fish.get(i).update(g);
+        for (int i = fish.size() - 1; i >= 0; i--) {
+            try {
+                fish.get(i).update(g);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             double x = fish.get(i).x;
             double y = fish.get(i).y;
             if (x > 1550 || y > 850 || x < -50 || y < -50) {
                 fish.remove(i);
-            }
-        }
-        for (int i = fish.size() - 1; i >= 0; i--) {
-            fish.get(i).update(g);
-            if (player.hitBox.intersects(fish.get(i).hitBox)) {
+            } else if (player.hitBox.intersects(fish.get(i).hitBox)) {
                 fish.remove(i);
                 numFishCollected++;
             }
+        }
+
+        //Draw and update missiles
+        for (int i = 0; i < enemy.missiles.size(); i++) {
+            enemy.missiles.get(i).update(g);
         }
     }
 

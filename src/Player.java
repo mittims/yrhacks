@@ -6,7 +6,7 @@ public class Player extends Movable {
     public double deceleration = -0.5d;
     public double direction;
 
-    public void update(Graphics g, int mx, int my) {
+    public void update(Graphics g, int mx, int my) throws IOException {
         if (!Main.paused) {
             if (distanceTo(mx, my) > 10) {
                 direction = Math.atan2(my - y, mx - x);
@@ -29,5 +29,8 @@ public class Player extends Movable {
 
     public Player (String spritePath) throws IOException {
         super(spritePath, 0d, 0d, 0d);
+    }
+    public void hurt() {
+
     }
 }

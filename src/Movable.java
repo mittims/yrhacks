@@ -25,7 +25,7 @@ public class Movable {
         return rotateSprite(sprite, direction);
     }
 
-    public void update(Graphics g) {
+    public void update(Graphics g) throws IOException {
         g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
         hitBox.x = (int) (x - sprite.getWidth() / 2d);
         hitBox.y = (int) (y - sprite.getHeight() / 2d);
