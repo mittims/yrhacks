@@ -13,6 +13,11 @@ public class Player extends Movable {
                 x += speed * Math.cos(direction);
                 y += speed * Math.sin(direction);
                 speed += acceleration;
+                if (x + sprite.getWidth() > 1500) {
+                    x = 1499 - sprite.getWidth();
+                } else if (y + sprite.getHeight() > 800) {
+                    y = 799 - sprite.getHeight();
+                }
                 if (isOnLand()) {
                     speed = Math.min(speed, 3d - Main.numFishCollected * 0.1d);
                 } else {

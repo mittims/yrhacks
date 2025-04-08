@@ -19,21 +19,23 @@ public class Missile extends Movable {
         int h = sprite.getHeight();
         // Create rotated center
         BufferedImage rotated = new BufferedImage(w, h, sprite.getType());
+        direction = Math.atan2(Main.player.y - y, Main.player.x - x);
+
+        // Create rotated center
         Graphics2D graphics = rotated.createGraphics();
         AffineTransform at = new AffineTransform();
         // Rotate sprite around center
-        at.rotate(Math.atan2(targetY - y, targetX - x), w / 2d, h / 2d);
+        at.rotate(direction+Math.PI/2, w / 2d, h / 2d);
         graphics.setTransform(at);
         graphics.drawImage(sprite, null,0, 0);
         graphics.dispose();
-        // Return new sprite
         sprite = rotated;
     }
     public void update (Graphics g) {
         if (lifespan == 0) {
             alive = false;
         } else {
-            g.drawImage(sprite, (int)x, (int)y, null);
+            g.drawImage(sprite, (int)x - sprite.getWidth() / 2, (int)y - sprite.getHeight() / 2, null);
             lifespan--;
             //Movement
             x += speed * Math.cos(direction);

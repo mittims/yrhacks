@@ -1,3 +1,5 @@
+import org.w3c.dom.css.Rect;
+
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.io.*;
@@ -20,6 +22,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static int screenWidth = 1500;
     public static int screenHeight = 800;
     public static boolean [][] land;
+//    public static Rectangle nest = new Rectangle()
 
     public static void main(String[] args) throws IOException {
         player = new Player("Sprites/player.png");

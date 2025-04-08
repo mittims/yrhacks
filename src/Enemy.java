@@ -54,7 +54,7 @@ public class Enemy extends Movable {
         if (rocketSpawnDelay > 0) {
             rocketSpawnDelay--;
         }
-        if (Main.player.distanceTo(x, y) < 500 && rocketSpawnDelay == 0) {
+        if (Main.player.distanceTo(x, y) < 800 && rocketSpawnDelay == 0) {
             missiles.add(new Missile("Sprites/Rocket.PNG", x, y, Main.player.x, Main.player.y));
             rocketSpawnDelay = 250;
         }
