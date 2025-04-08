@@ -28,7 +28,6 @@ public class Player extends Movable {
                 speed = Math.max(0, speed);
             }
         }
-
         super.update(g);
     }
 

@@ -2,7 +2,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Fish extends Movable{
-    public int changeFrame = 75;
+    public int changeFrame = 150;
     public int localFrame;
 
     public Fish (int x, int y, double speed, double direction) throws IOException {
@@ -19,12 +19,13 @@ public class Fish extends Movable{
                 direction = Math.atan2(Main.player.y - y, Main.player.x - x) - 180;
             }
             else if (localFrame == changeFrame) {
-                direction = Math.random()*360;
-                changeFrame = (int) (Math.random()*((75 - 25) + 1));
+                direction = Math.random()*2*3.1415926535;
+                changeFrame = (int) (Math.random()*((75 - 50) + 50));
                 localFrame = 0;
+                System.out.println(changeFrame);
             }
             if (x > 0 && x < 1500 && y > 0 && y < 800 && Main.land[(int) x][(int) y]){
-                x += 20 * Math.cos(direction - 3.14159265358979);
+                x += 20 * Math.cos(direction - 3.1415926535);
                 y += 20 * Math.sin(direction - 3.1415926535);
                 direction = Math.random()*360;
             }
