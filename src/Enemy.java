@@ -13,7 +13,7 @@ public class Enemy extends Movable {
     }
     public void update(Graphics g) throws IOException {
         //Draw sprite
-        g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
+        //g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
 
         //Checking if out of bounds
         if (!Main.paused) {

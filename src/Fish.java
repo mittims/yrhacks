@@ -1,8 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Fish extends Movable{
     public int changeFrame = 150;
@@ -36,7 +35,6 @@ public class Fish extends Movable{
                 direction = Math.random()*2*3.1415926535;
                 changeFrame = (int) (Math.random()*((75 - 50) + 50));
                 localChangeFrame = 0;
-                System.out.println(changeFrame);
             }
             if (x > 0 && x < 1500 && y > 0 && y < 800 && Main.land[(int) x][(int) y]){
                 x += 20 * Math.cos(direction - 3.1415926535);

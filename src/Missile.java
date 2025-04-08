@@ -9,7 +9,7 @@ public class Missile extends Movable {
     public int lifespan = 500;
     public boolean alive = true;
     public Missile(String spritePath, double x, double y, double targetX, double targetY) throws IOException {
-        super(spritePath, x, y, 5);
+        super(spritePath, x, y, 8);
         this.x = x;
         this.y = y;
         this.targetX = targetX;
@@ -36,16 +36,19 @@ public class Missile extends Movable {
             alive = false;
         } else {
             g.drawImage(sprite, (int)x - sprite.getWidth() / 2, (int)y - sprite.getHeight() / 2, null);
+            g.drawRect(Main.player.hitBox.x, Main.player.hitBox.y, (int)Main.player.hitBox.getWidth(), (int)Main.player.hitBox.getHeight());
+            g.drawRect(hitBox.x, hitBox.y,(int) hitBox.getWidth(), (int)hitBox.getHeight());
             lifespan--;
             //Movement
             x += speed * Math.cos(direction);
             y += speed * Math.sin(direction);
-            hitBox.x = (int) x;
-            hitBox.y = (int) y;
+            hitBox.x = (int) x-sprite.getWidth()/2;
+            hitBox.y = (int) y-sprite.getHeight()/2;
 
             //Player hit detection
             if (hitBox.intersects(Main.player.hitBox)) {
 
+                Main.gameState = 1;
             }
 
             //Decrease projectile lifespan

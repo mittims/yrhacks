@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
-    public static int gameState = -1;
+    public static int gameState = -1; // -1 = start, 0 = game, 1 = game over
     public static boolean paused;
     public static boolean mousePressed = true;
     public static JFrame frame;
@@ -16,6 +16,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static ArrayList<Fish> fish = new ArrayList<>();
     public static BufferedImage map;
     public static BufferedImage start;
+    public static BufferedImage gameOver;
     public static int score = 0;
     public static int numFishCollected = 0;
     public static int numFish = 10;
@@ -29,6 +30,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         player = new Player("Sprites/player.png");
         Main panel = new Main();
         start = ImageIO.read(new File("Sprites/IMG_0027.PNG"));
+        gameOver = ImageIO.read(new File("Sprites/gameOver.PNG"));
         frame = new JFrame("skibstri");
         frame.add(panel);
         frame.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -99,6 +101,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 if (player.speed < 0) player.speed = 0;
             }
 
+
             if (player.hitBox.intersects(nest)) {
                 score += numFishCollected;
                 numFishCollected = 0;
@@ -163,14 +166,13 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                     numFishCollected++;
                 }
             }
+            //Draw and update missiles
+            for (int i = 0; i < enemy.missiles.size(); i++) {
+                enemy.missiles.get(i).update(g);
+            }
+        } else if (gameState == 1) {
+            g.drawImage(gameOver, 0, 0, null);
         }
-
-        //Draw and update missiles
-        for (int i = 0; i < enemy.missiles.size(); i++) {
-            enemy.missiles.get(i).update(g);
-        }
-
-
     }
 
     public void keyTyped(KeyEvent e) {}
@@ -185,11 +187,11 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public boolean clickRectangle(MouseEvent e, int x1, int y1, int x2, int y2) {
         return (x1 <= e.getX() && e.getX() <= x2 && y1 <= e.getY() && e.getY() <= y2);
     }
-    public void mouseClicked(MouseEvent e) {}
-
-    public void mousePressed(MouseEvent e) {
-        if (clickRectangle(e, 528,367,1064,520)){
+    public void mouseClicked(MouseEvent e) {
+        if (gameState == -1 && clickRectangle(e, 528,367,1064,520)){
             gameState = 0;
+        } else if (gameState == 1 && clickRectangle(e, 467, 652, 1006, 787)) {
+            gameState = -1;
         }
     }
 
