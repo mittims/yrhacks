@@ -16,6 +16,7 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
     public static ArrayList<Fish> fish = new ArrayList<>();
     public static BufferedImage map;
     public static BufferedImage start;
+    public static int score = 0;
     public static int numFishCollected = 0;
     public static int numFish = 10;
     public static int fishFrame = 0, targetFishFrame = 50;
@@ -96,6 +97,11 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
                 if (player.speed < 0) player.speed = 0;
             }
 
+            if (player.hitBox.intersects(nest)) {
+                score += numFishCollected;
+                numFishCollected = 0;
+            }
+
             // Enemy updating
             try {
                 enemy.update(g);
@@ -161,6 +167,8 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         for (int i = 0; i < enemy.missiles.size(); i++) {
             enemy.missiles.get(i).update(g);
         }
+
+
     }
 
     public void keyTyped(KeyEvent e) {}
