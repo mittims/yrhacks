@@ -60,6 +60,10 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
         enemy.missiles.clear();
         numFishCollected = 0;
         score = 0;
+        player.x = 750;
+        player.y = 400;
+        enemy.x = 100;
+        enemy.y = 100;
         Color c;
         for (int i = 0; i < map.getWidth(); i++){
             for (int j = 0; j < map.getHeight(); j++){
