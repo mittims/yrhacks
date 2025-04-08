@@ -8,8 +8,9 @@ import javax.swing.*;
 
 public class Main extends JPanel implements MouseListener, KeyListener, Runnable {
     public static boolean paused;
+    public static boolean mousePressed = false;
     public static JFrame frame;
-    public static Player player = new Player(0, 0, 10);
+    public static Player player = new Player(0, 0, 0);
     public static ArrayList<Movable> enemies = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -48,6 +49,11 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
         }
         g.drawRect((int) player.x, (int) player.y, 50, 50);
+        if (mousePressed && player.speed < 7.5d) player.speed += 0.2d;
+        if (!mousePressed) {
+            player.speed -= 0.5d;
+            if (player.speed < 0) player.speed = 0;
+        }
         player.update(mouseLocation.x, mouseLocation.y);
     }
 
@@ -59,9 +65,13 @@ public class Main extends JPanel implements MouseListener, KeyListener, Runnable
 
     public void mouseClicked(MouseEvent e) {}
 
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+        mousePressed = true;
+    }
 
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+        mousePressed = false;
+    }
 
     public void mouseEntered(MouseEvent e) {}
 
