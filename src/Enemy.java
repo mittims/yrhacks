@@ -12,8 +12,10 @@ public class Enemy extends Movable {
         movementFrameCount = 0;
     }
     public void update(Graphics g) {
+        //Draw sprite
         g.drawImage(sprite, (int) (x - sprite.getWidth() / 2d), (int) (y - sprite.getHeight() / 2d), null);
 
+        //Checking if out of bounds
         if (direction == 1 && y <= sprite.getHeight()) {
             direction = 3;
             movementFrameCount = 100;
@@ -28,11 +30,13 @@ public class Enemy extends Movable {
             movementFrameCount = 100;
         }
 
+        //Movement frame counter
         if (movementFrameCount == 0) {
             movementFrameCount = (int) (100 + Math.random() * 200);
             direction = (int) (1 + Math.random() * 4);
         } else movementFrameCount--;
 
+        //Movement
         if (direction == 1) {
             y-=speed;
         } else if (direction == 2) {
@@ -43,5 +47,8 @@ public class Enemy extends Movable {
             x-=speed;
         }
 
+        if (Main.player.distanceTo(x, y) < 500) {
+            
+        }
     }
 }
